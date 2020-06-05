@@ -45,12 +45,12 @@ namespace XFCovidTrack.Views
         {
             if (string.IsNullOrEmpty(e.NewTextValue))
             {
-                listOfCountry.ItemsSource = resultCasesViewModel.countries;
+                listOfCountry.ItemsSource = resultCasesViewModel.BondedDevices;
             }
             else
             {
-                listOfCountry.ItemsSource = resultCasesViewModel.countries.Where(value =>
-                value.country.IndexOf(e.NewTextValue, StringComparison.OrdinalIgnoreCase) >= 0);
+                listOfCountry.ItemsSource = resultCasesViewModel.BondedDevices.Where(value =>
+                value.Name.IndexOf(e.NewTextValue, StringComparison.OrdinalIgnoreCase) >= 0);
             }
         }
     }

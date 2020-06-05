@@ -133,7 +133,7 @@
                 <CollectionView
                     x:Name="listOfCountry"
                     ItemSizingStrategy="MeasureAllItems"
-                    ItemsSource="{Binding countries}"
+                    ItemsSource="{Binding BondedDevices}"
                     SelectedItem="{Binding Selection, Mode=TwoWay}"
                     SelectionChangedCommand="{Binding SelectionCommand}"
                     SelectionMode="Single"
@@ -146,22 +146,16 @@
                                 Orientation="Horizontal"
                                 Spacing="30"
                                 VerticalOptions="FillAndExpand">
-                                <Image
-                                    Aspect="AspectFit"
-                                    BackgroundColor="Transparent"
-                                    HeightRequest="50"
-                                    Source="{Binding countryInfo.flag}"
-                                    VerticalOptions="Center"
-                                    WidthRequest="80" />
+                               
                                 <StackLayout HorizontalOptions="StartAndExpand" VerticalOptions="Center">
                                     <Label Style="{DynamicResource lblCasesNumbers}" Text="{Binding cases, StringFormat='{0:N0}'}" />
-                                    <Label Style="{DynamicResource lblCountry}" Text="{Binding country}" />
+                                    <Label Style="{DynamicResource lblCountry}" Text="{Binding Name}" />
                                 </StackLayout>
 
-                                <StackLayout HorizontalOptions="End" VerticalOptions="Center">
+                                <!--<StackLayout HorizontalOptions="End" VerticalOptions="Center">
                                     <Label Style="{DynamicResource lblMoreCases}" Text="{Binding todayCases, StringFormat='{0:N0}'}" />
                                     <Label Style="{DynamicResource lblDay}" Text="Today" />
-                                </StackLayout>
+                                </StackLayout>-->
 
                             </StackLayout>
                         </DataTemplate>

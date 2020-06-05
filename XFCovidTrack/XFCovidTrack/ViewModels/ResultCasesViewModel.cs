@@ -17,16 +17,17 @@ namespace XFCovidTrack.ViewModels
     public class ResultCasesViewModel : BaseViewModel
     {
         private readonly IRestService _service;
+        public IBluetooth _Bluetooth;
         public ICommand refreshCommand { get; }
         public ICommand SearchCommand { get; }
         public ICommand SelectionCommand { get; }
-        public ObservableCollection<Country> countries { get; set; }
+        public ObservableCollection<BtDevice> BondedDevices { get; set; }
 
         public ResultCasesViewModel(IRestService restService)
         {
             _service = restService;
-            countries = new ObservableCollection<Country>();
-
+            BondedDevices = new ObservableCollection<BtDevice>();
+            _Bluetooth = DependencyService.Get<IBluetooth>();
             refreshCommand = new Command(async () => await RefreshAsync());
             SearchCommand = new Command(async () => await SearchCountry());
             SelectionCommand = new Command(ItemSelected);
@@ -228,24 +229,23 @@ namespace XFCovidTrack.ViewModels
             IsBusyCountry = isBusyCountry;
             try
             {
-                var response = await _service.GetCountryMoreCases();
+                var response = await _Bluetooth.GetBondedDevices();
                 if (response != null)
                 {
                     foreach (var item in response)
                     {
-                        //    NÃO SÃO PAÍSES, SÃO NAVIOS DE CRUZEIRO o.O
-                        if (item.country.ToLower().Contains("zaandam") ||
-                            item.country.ToLower().Contains("diamond princess"))
-                            continue;
 
-                        countries.Add(item);
+
+                        BondedDevices.Add(item);
 
                     }
 
                 }
 
             }
-            catch { }
+            catch(Exception ex) {
+                Console.WriteLine(ex);
+            }
             finally
             {
                 IsBusy = false;
